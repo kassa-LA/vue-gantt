@@ -32,6 +32,7 @@
 
 /* ── Root ── */
 .gantt-root {
+  width: 100%;
   font-family: var(--gantt-font);
   font-size: var(--gantt-font-size);
   -webkit-user-select: none;
