@@ -127,8 +127,8 @@
 /* ── Track (right side) ── */
 .gantt-track {
   position: relative;
-  height: var(--gantt-row-height);
-  overflow: hidden;
+  height: 100%;
+  overflow: visible;
 }
 
 /* ── Per-day backgrounds ── */
@@ -157,8 +157,7 @@
 /* ── Bars ── */
 .gantt-bar {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  top: calc((var(--gantt-row-height) - var(--gantt-bar-height)) / 2);
   height: var(--gantt-bar-height);
   background: var(--gantt-bar-bg);
   border-radius: var(--gantt-bar-radius);
