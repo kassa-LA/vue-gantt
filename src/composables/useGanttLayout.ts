@@ -17,8 +17,8 @@ export function localMidnight(date: Date = new Date()): Date {
   return new Date(date.getFullYear(), date.getMonth(), date.getDate())
 }
 
-export function useGanttLayout(zoom: Ref<GanttZoom>, windowStart: Ref<Date>) {
-  const pxPerDay = computed(() => PX_PER_DAY[zoom.value])
+export function useGanttLayout(zoom: Ref<GanttZoom>, windowStart: Ref<Date>, pxPerDayOverride?: Ref<number>) {
+  const pxPerDay = pxPerDayOverride ?? computed(() => PX_PER_DAY[zoom.value])
   const windowDays = computed(() => WINDOW_DAYS[zoom.value])
   const totalWidth = computed(() => pxPerDay.value * windowDays.value)
 

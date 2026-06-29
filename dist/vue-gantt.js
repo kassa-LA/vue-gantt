@@ -1,34 +1,34 @@
-import { computed as v, defineComponent as P, openBlock as s, createElementBlock as o, normalizeStyle as m, Fragment as D, renderList as k, normalizeClass as W, createElementVNode as d, toDisplayString as b, createCommentVNode as T, createBlock as C, useModel as z, unref as p, createVNode as G, mergeModels as N } from "vue";
-const F = {
+import { computed as w, defineComponent as $, openBlock as o, createElementBlock as u, normalizeStyle as m, Fragment as D, renderList as k, normalizeClass as W, createElementVNode as c, toDisplayString as f, createCommentVNode as C, createBlock as G, useModel as S, ref as T, onMounted as F, onBeforeUnmount as L, unref as p, createVNode as Y, mergeModels as A } from "vue";
+const N = {
   week: 100,
   month: 32,
   year: 3
-}, L = {
+}, B = {
   week: 7,
   month: 31,
   year: 365
 };
-function $(e = /* @__PURE__ */ new Date()) {
-  return new Date(e.getFullYear(), e.getMonth(), e.getDate());
+function P(t = /* @__PURE__ */ new Date()) {
+  return new Date(t.getFullYear(), t.getMonth(), t.getDate());
 }
-function Y(e, i) {
-  const u = v(() => F[e.value]), c = v(() => L[e.value]), g = v(() => u.value * c.value), x = v(() => {
-    const w = [], f = $(i.value);
-    for (let n = 0; n < c.value; n++) {
-      const t = new Date(f);
-      t.setDate(t.getDate() + n), w.push(t);
+function E(t, r, d) {
+  const h = d ?? w(() => N[t.value]), y = w(() => B[t.value]), v = w(() => h.value * y.value), x = w(() => {
+    const b = [], l = P(r.value);
+    for (let i = 0; i < y.value; i++) {
+      const n = new Date(l);
+      n.setDate(n.getDate() + i), b.push(n);
     }
-    return w;
+    return b;
   });
-  return { pxPerDay: u, windowDays: c, totalWidth: g, days: x };
+  return { pxPerDay: h, windowDays: y, totalWidth: v, days: x };
 }
-const A = {
+const I = {
   key: 0,
   class: "gantt-axis-row"
-}, B = { class: "gantt-axis-dayname" }, I = { class: "gantt-axis-daynum" }, O = { class: "gantt-axis-row gantt-axis-row-kw" }, E = { class: "gantt-axis-row" }, H = {
+}, O = { class: "gantt-axis-dayname" }, R = { class: "gantt-axis-daynum" }, H = { class: "gantt-axis-row gantt-axis-row-kw" }, J = { class: "gantt-axis-row" }, V = {
   key: 2,
   class: "gantt-axis-row"
-}, J = /* @__PURE__ */ P({
+}, _ = /* @__PURE__ */ $({
   __name: "GanttTimeAxis",
   props: {
     days: {},
@@ -36,70 +36,70 @@ const A = {
     pxPerDay: {},
     totalWidth: {}
   },
-  setup(e) {
-    const i = e, u = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"], c = ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"];
-    function g(n) {
-      const t = new Date(n);
-      t.setHours(0, 0, 0, 0), t.setDate(t.getDate() + 3 - (t.getDay() + 6) % 7);
-      const a = new Date(t.getFullYear(), 0, 4);
-      return 1 + Math.round(((t.getTime() - a.getTime()) / 864e5 - 3 + (a.getDay() + 6) % 7) / 7);
+  setup(t) {
+    const r = t, d = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"], h = ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"];
+    function y(l) {
+      const i = new Date(l);
+      i.setHours(0, 0, 0, 0), i.setDate(i.getDate() + 3 - (i.getDay() + 6) % 7);
+      const n = new Date(i.getFullYear(), 0, 4);
+      return 1 + Math.round(((i.getTime() - n.getTime()) / 864e5 - 3 + (n.getDay() + 6) % 7) / 7);
     }
-    const x = (n) => n.getDay() === 0 || n.getDay() === 6, w = v(() => {
-      const n = [];
-      for (const t of i.days) {
-        const a = g(t), h = n[n.length - 1];
-        h && h.kw === a ? h.days.push(t) : n.push({ kw: a, days: [t] });
+    const v = (l) => l.getDay() === 0 || l.getDay() === 6, x = w(() => {
+      const l = [];
+      for (const i of r.days) {
+        const n = y(i), g = l[l.length - 1];
+        g && g.kw === n ? g.days.push(i) : l.push({ kw: n, days: [i] });
       }
-      return n;
-    }), f = v(() => {
-      const n = [];
-      for (const t of i.days) {
-        const a = `${c[t.getMonth()]} ${t.getFullYear()}`, h = n[n.length - 1];
-        h && h.label === a ? h.days.push(t) : n.push({ label: a, days: [t] });
+      return l;
+    }), b = w(() => {
+      const l = [];
+      for (const i of r.days) {
+        const n = `${h[i.getMonth()]} ${i.getFullYear()}`, g = l[l.length - 1];
+        g && g.label === n ? g.days.push(i) : l.push({ label: n, days: [i] });
       }
-      return n;
+      return l;
     });
-    return (n, t) => (s(), o("div", {
+    return (l, i) => (o(), u("div", {
       class: "gantt-axis",
-      style: m({ width: e.totalWidth + "px" })
+      style: m({ width: t.totalWidth + "px" })
     }, [
-      e.zoom === "week" ? (s(), o("div", A, [
-        (s(!0), o(D, null, k(e.days, (a, h) => (s(), o("div", {
-          key: h,
-          class: W(["gantt-axis-cell gantt-axis-cell-week", { "gantt-axis-weekend": x(a) }]),
-          style: m({ width: e.pxPerDay + "px" })
+      t.zoom === "week" ? (o(), u("div", I, [
+        (o(!0), u(D, null, k(t.days, (n, g) => (o(), u("div", {
+          key: g,
+          class: W(["gantt-axis-cell gantt-axis-cell-week", { "gantt-axis-weekend": v(n) }]),
+          style: m({ width: t.pxPerDay + "px" })
         }, [
-          d("span", B, b(u[a.getDay()]), 1),
-          d("span", I, b(a.getDate()) + "." + b(String(a.getMonth() + 1).padStart(2, "0")) + ".", 1)
+          c("span", O, f(d[n.getDay()]), 1),
+          c("span", R, f(n.getDate()) + "." + f(String(n.getMonth() + 1).padStart(2, "0")) + ".", 1)
         ], 6))), 128))
-      ])) : e.zoom === "month" ? (s(), o(D, { key: 1 }, [
-        d("div", O, [
-          (s(!0), o(D, null, k(w.value, (a) => (s(), o("div", {
-            key: a.kw,
+      ])) : t.zoom === "month" ? (o(), u(D, { key: 1 }, [
+        c("div", H, [
+          (o(!0), u(D, null, k(x.value, (n) => (o(), u("div", {
+            key: n.kw,
             class: "gantt-axis-kw",
-            style: m({ width: a.days.length * e.pxPerDay + "px" })
-          }, " KW " + b(a.kw), 5))), 128))
+            style: m({ width: n.days.length * t.pxPerDay + "px" })
+          }, " KW " + f(n.kw), 5))), 128))
         ]),
-        d("div", E, [
-          (s(!0), o(D, null, k(e.days, (a, h) => (s(), o("div", {
-            key: h,
-            class: W(["gantt-axis-cell gantt-axis-cell-day", { "gantt-axis-weekend": x(a) }]),
-            style: m({ width: e.pxPerDay + "px" })
-          }, b(a.getDate()), 7))), 128))
+        c("div", J, [
+          (o(!0), u(D, null, k(t.days, (n, g) => (o(), u("div", {
+            key: g,
+            class: W(["gantt-axis-cell gantt-axis-cell-day", { "gantt-axis-weekend": v(n) }]),
+            style: m({ width: t.pxPerDay + "px" })
+          }, f(n.getDate()), 7))), 128))
         ])
-      ], 64)) : (s(), o("div", H, [
-        (s(!0), o(D, null, k(f.value, (a) => (s(), o("div", {
-          key: a.label,
+      ], 64)) : (o(), u("div", V, [
+        (o(!0), u(D, null, k(b.value, (n) => (o(), u("div", {
+          key: n.label,
           class: "gantt-axis-month",
-          style: m({ width: a.days.length * e.pxPerDay + "px" })
-        }, b(a.label), 5))), 128))
+          style: m({ width: n.days.length * t.pxPerDay + "px" })
+        }, f(n.label), 5))), 128))
       ]))
     ], 4));
   }
-}), V = ["data-tooltip"], R = {
+}), K = ["data-tooltip"], X = {
   key: 0,
   class: "gantt-bar-label"
-}, _ = /* @__PURE__ */ P({
+}, U = /* @__PURE__ */ $({
   __name: "GanttBar",
   props: {
     item: {},
@@ -107,16 +107,16 @@ const A = {
     width: {},
     showLabel: { type: Boolean }
   },
-  setup(e) {
-    return (i, u) => (s(), o("div", {
-      class: W(["gantt-bar", e.item.className]),
-      style: m({ left: e.left + "px", width: e.width + "px" }),
-      "data-tooltip": e.item.tooltip || e.item.label
+  setup(t) {
+    return (r, d) => (o(), u("div", {
+      class: W(["gantt-bar", t.item.className]),
+      style: m({ left: t.left + "px", width: t.width + "px" }),
+      "data-tooltip": t.item.tooltip || t.item.label
     }, [
-      e.showLabel && e.width > 32 ? (s(), o("span", R, b(e.item.label), 1)) : T("", !0)
-    ], 14, V));
+      t.showLabel && t.width > 32 ? (o(), u("span", X, f(t.item.label), 1)) : C("", !0)
+    ], 14, K));
   }
-}), K = { class: "gantt-row" }, X = { class: "gantt-label-text" }, j = ["data-tooltip"], q = /* @__PURE__ */ P({
+}), j = { class: "gantt-row" }, q = { class: "gantt-label-text" }, Q = ["data-tooltip"], Z = /* @__PURE__ */ $({
   __name: "GanttRow",
   props: {
     group: {},
@@ -129,74 +129,74 @@ const A = {
     days: {},
     zoom: {}
   },
-  setup(e) {
-    const i = e;
-    function u(l) {
-      const y = l.split("-").map(Number);
-      return new Date(y[0], y[1] - 1, y[2]);
+  setup(t) {
+    const r = t;
+    function d(e) {
+      const a = e.split("-").map(Number);
+      return new Date(a[0], a[1] - 1, a[2]);
     }
-    function c(l) {
-      return (u(l).getTime() - i.windowStart.getTime()) / 864e5 * i.pxPerDay;
+    function h(e) {
+      return (d(e).getTime() - r.windowStart.getTime()) / 864e5 * r.pxPerDay;
     }
-    function g(l) {
-      return Math.max(0, c(l));
+    function y(e) {
+      return Math.max(0, h(e));
     }
-    function x(l, y) {
-      const r = c(l), M = c(y) + i.pxPerDay;
-      return Math.max(0, Math.min(i.totalWidth, M) - Math.max(0, r));
+    function v(e, a) {
+      const s = h(e), M = h(a) + r.pxPerDay;
+      return Math.max(0, Math.min(r.totalWidth, M) - Math.max(0, s));
     }
-    function w(l, y) {
-      const r = u(l), M = u(y), S = new Date(i.windowStart);
-      return S.setDate(S.getDate() + i.days.length), M >= i.windowStart && r < S;
+    function x(e, a) {
+      const s = d(e), M = d(a), z = new Date(r.windowStart);
+      return z.setDate(z.getDate() + r.days.length), M >= r.windowStart && s < z;
     }
-    const f = v(() => i.items.filter((l) => w(l.start, l.end))), n = v(() => i.backgrounds.filter((l) => w(l.start, l.end ?? l.start))), t = (l) => {
-      const y = /* @__PURE__ */ new Date();
-      return l.getDate() === y.getDate() && l.getMonth() === y.getMonth() && l.getFullYear() === y.getFullYear();
-    }, a = (l) => l.getDay() === 0 || l.getDay() === 6, h = v(() => i.zoom !== "year");
-    return (l, y) => (s(), o("div", K, [
-      d("div", {
+    const b = w(() => r.items.filter((e) => x(e.start, e.end))), l = w(() => r.backgrounds.filter((e) => x(e.start, e.end ?? e.start))), i = (e) => {
+      const a = /* @__PURE__ */ new Date();
+      return e.getDate() === a.getDate() && e.getMonth() === a.getMonth() && e.getFullYear() === a.getFullYear();
+    }, n = (e) => e.getDay() === 0 || e.getDay() === 6, g = w(() => r.zoom !== "year");
+    return (e, a) => (o(), u("div", j, [
+      c("div", {
         class: "gantt-label-cell",
-        style: m({ width: e.labelWidth + "px" })
+        style: m({ width: t.labelWidth + "px" })
       }, [
-        d("span", X, b(e.group.label), 1)
+        c("span", q, f(t.group.label), 1)
       ], 4),
-      d("div", {
+      c("div", {
         class: "gantt-track",
-        style: m({ width: e.totalWidth + "px" })
+        style: m({ width: t.totalWidth + "px" })
       }, [
-        (s(!0), o(D, null, k(e.days, (r, M) => (s(), o("div", {
+        (o(!0), u(D, null, k(t.days, (s, M) => (o(), u("div", {
           key: M,
           class: W(["gantt-day-bg", {
-            "gantt-weekend": a(r),
-            "gantt-today": t(r)
+            "gantt-weekend": n(s),
+            "gantt-today": i(s)
           }]),
-          style: m({ left: M * e.pxPerDay + "px", width: e.pxPerDay + "px" })
+          style: m({ left: M * t.pxPerDay + "px", width: t.pxPerDay + "px" })
         }, null, 6))), 128)),
-        (s(!0), o(D, null, k(n.value, (r) => (s(), o("div", {
-          key: r.id,
+        (o(!0), u(D, null, k(l.value, (s) => (o(), u("div", {
+          key: s.id,
           class: "gantt-bg-item",
-          "data-tooltip": r.label,
+          "data-tooltip": s.label,
           style: m({
-            left: g(r.start) + "px",
-            width: x(r.start, r.end ?? r.start) + "px"
+            left: y(s.start) + "px",
+            width: v(s.start, s.end ?? s.start) + "px"
           })
-        }, null, 12, j))), 128)),
-        (s(!0), o(D, null, k(f.value, (r) => (s(), C(_, {
-          key: r.id,
-          item: r,
-          left: g(r.start),
-          width: x(r.start, r.end),
-          showLabel: h.value
+        }, null, 12, Q))), 128)),
+        (o(!0), u(D, null, k(b.value, (s) => (o(), G(U, {
+          key: s.id,
+          item: s,
+          left: y(s.start),
+          width: v(s.start, s.end),
+          showLabel: g.value
         }, null, 8, ["item", "left", "width", "showLabel"]))), 128))
       ], 4)
     ]));
   }
-}), Q = { class: "gantt-root" }, U = { class: "gantt-toolbar" }, Z = { class: "gantt-nav" }, tt = { class: "gantt-zoom-btns" }, et = { class: "gantt-scroll" }, at = { class: "gantt-header-row" }, nt = {
+}), tt = { class: "gantt-toolbar" }, et = { class: "gantt-nav" }, at = { class: "gantt-zoom-btns" }, nt = { class: "gantt-scroll" }, st = { class: "gantt-header-row" }, lt = {
   key: 0,
   class: "gantt-empty"
-}, lt = /* @__PURE__ */ P({
+}, it = /* @__PURE__ */ $({
   __name: "GanttTimeline",
-  props: /* @__PURE__ */ N({
+  props: /* @__PURE__ */ A({
     groups: {},
     items: {},
     backgrounds: { default: () => [] },
@@ -205,91 +205,107 @@ const A = {
     zoom: { default: "month" },
     zoomModifiers: {},
     start: {
-      default: () => $()
+      default: () => P()
     },
     startModifiers: {}
   }),
   emits: ["update:zoom", "update:start"],
-  setup(e) {
-    const i = e, u = z(e, "zoom"), c = z(e, "start"), g = Y(u, c), x = v(() => {
-      const n = {};
-      for (const t of i.items)
-        n[t.groupId] || (n[t.groupId] = []), n[t.groupId].push(t);
-      return n;
+  setup(t) {
+    const r = t, d = S(t, "zoom"), h = S(t, "start"), y = T(null), v = T(0);
+    let x = null;
+    F(() => {
+      y.value && (v.value = y.value.offsetWidth, x = new ResizeObserver(([e]) => {
+        v.value = e.contentRect.width;
+      }), x.observe(y.value));
+    }), L(() => x?.disconnect());
+    const b = w(() => {
+      const e = N[d.value];
+      if (!v.value) return e;
+      const s = (v.value - r.labelWidth) / B[d.value];
+      return Math.max(e, s);
+    }), l = E(d, h, b), i = w(() => {
+      const e = {};
+      for (const a of r.items)
+        e[a.groupId] || (e[a.groupId] = []), e[a.groupId].push(a);
+      return e;
     });
-    function w(n) {
-      const t = $(c.value);
-      t.setDate(t.getDate() + n * g.windowDays.value), c.value = t;
+    function n(e) {
+      const a = P(h.value);
+      a.setDate(a.getDate() + e * l.windowDays.value), h.value = a;
     }
-    function f() {
-      c.value = $();
+    function g() {
+      h.value = P();
     }
-    return (n, t) => (s(), o("div", Q, [
-      d("div", U, [
-        d("div", Z, [
-          d("button", {
+    return (e, a) => (o(), u("div", {
+      class: "gantt-root",
+      ref_key: "rootEl",
+      ref: y
+    }, [
+      c("div", tt, [
+        c("div", et, [
+          c("button", {
             class: "gantt-btn",
-            onClick: t[0] || (t[0] = (a) => w(-1))
+            onClick: a[0] || (a[0] = (s) => n(-1))
           }, "‹"),
-          d("button", {
+          c("button", {
             class: "gantt-btn",
-            onClick: f
+            onClick: g
           }, "Heute"),
-          d("button", {
+          c("button", {
             class: "gantt-btn",
-            onClick: t[1] || (t[1] = (a) => w(1))
+            onClick: a[1] || (a[1] = (s) => n(1))
           }, "›")
         ]),
-        d("div", tt, [
-          d("button", {
-            class: W(["gantt-btn", { "gantt-btn-active": u.value === "week" }]),
-            onClick: t[2] || (t[2] = (a) => u.value = "week")
+        c("div", at, [
+          c("button", {
+            class: W(["gantt-btn", { "gantt-btn-active": d.value === "week" }]),
+            onClick: a[2] || (a[2] = (s) => d.value = "week")
           }, "Woche", 2),
-          d("button", {
-            class: W(["gantt-btn", { "gantt-btn-active": u.value === "month" }]),
-            onClick: t[3] || (t[3] = (a) => u.value = "month")
+          c("button", {
+            class: W(["gantt-btn", { "gantt-btn-active": d.value === "month" }]),
+            onClick: a[3] || (a[3] = (s) => d.value = "month")
           }, "Monat", 2),
-          d("button", {
-            class: W(["gantt-btn", { "gantt-btn-active": u.value === "year" }]),
-            onClick: t[4] || (t[4] = (a) => u.value = "year")
+          c("button", {
+            class: W(["gantt-btn", { "gantt-btn-active": d.value === "year" }]),
+            onClick: a[4] || (a[4] = (s) => d.value = "year")
           }, "Jahr", 2)
         ])
       ]),
-      d("div", et, [
-        d("div", {
+      c("div", nt, [
+        c("div", {
           class: "gantt-inner",
-          style: m({ width: i.labelWidth + p(g).totalWidth.value + "px" })
+          style: m({ width: r.labelWidth + p(l).totalWidth.value + "px" })
         }, [
-          d("div", at, [
-            d("div", {
+          c("div", st, [
+            c("div", {
               class: "gantt-label-cell gantt-label-header",
-              style: m({ width: i.labelWidth + "px" })
+              style: m({ width: r.labelWidth + "px" })
             }, null, 4),
-            G(J, {
-              days: p(g).days.value,
-              zoom: u.value,
-              pxPerDay: p(g).pxPerDay.value,
-              totalWidth: p(g).totalWidth.value
+            Y(_, {
+              days: p(l).days.value,
+              zoom: d.value,
+              pxPerDay: p(l).pxPerDay.value,
+              totalWidth: p(l).totalWidth.value
             }, null, 8, ["days", "zoom", "pxPerDay", "totalWidth"])
           ]),
-          (s(!0), o(D, null, k(e.groups, (a) => (s(), C(q, {
-            key: a.id,
-            group: a,
-            items: x.value[a.id] ?? [],
-            backgrounds: i.backgrounds,
-            labelWidth: i.labelWidth,
-            totalWidth: p(g).totalWidth.value,
-            pxPerDay: p(g).pxPerDay.value,
-            windowStart: c.value,
-            days: p(g).days.value,
-            zoom: u.value
+          (o(!0), u(D, null, k(t.groups, (s) => (o(), G(Z, {
+            key: s.id,
+            group: s,
+            items: i.value[s.id] ?? [],
+            backgrounds: r.backgrounds,
+            labelWidth: r.labelWidth,
+            totalWidth: p(l).totalWidth.value,
+            pxPerDay: p(l).pxPerDay.value,
+            windowStart: h.value,
+            days: p(l).days.value,
+            zoom: d.value
           }, null, 8, ["group", "items", "backgrounds", "labelWidth", "totalWidth", "pxPerDay", "windowStart", "days", "zoom"]))), 128)),
-          e.groups.length === 0 ? (s(), o("div", nt, "Keine Daten")) : T("", !0)
+          t.groups.length === 0 ? (o(), u("div", lt, "Keine Daten")) : C("", !0)
         ], 4)
       ])
-    ]));
+    ], 512));
   }
 });
 export {
-  lt as GanttTimeline
+  it as GanttTimeline
 };
