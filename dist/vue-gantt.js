@@ -111,6 +111,7 @@ const A = {
     return (l, c) => (n(), o("div", {
       class: W(["gantt-bar", e.item.className]),
       style: m({
+        position: "absolute",
         left: e.left + "px",
         width: e.width + "px",
         top: "calc((var(--gantt-row-height) - var(--gantt-bar-height)) / 2)",

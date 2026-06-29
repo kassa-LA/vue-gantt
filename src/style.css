@@ -181,6 +181,7 @@
 
 /* ── CSS-only tooltips (data-tooltip attribute) ── */
 [data-tooltip] { position: relative; }
+.gantt-track > .gantt-bar { position: absolute; }  /* override [data-tooltip] which has equal specificity */
 [data-tooltip]:hover::after {
   content: attr(data-tooltip);
   position: absolute;

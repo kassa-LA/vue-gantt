@@ -14,6 +14,7 @@ defineProps<{
     class="gantt-bar"
     :class="item.className"
     :style="{
+      position: 'absolute',
       left: left + 'px',
       width: width + 'px',
       top: 'calc((var(--gantt-row-height) - var(--gantt-bar-height)) / 2)',
