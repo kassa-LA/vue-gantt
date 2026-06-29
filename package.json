@@ -5,7 +5,7 @@
   "files": ["dist"],
   "main": "./dist/vue-gantt.umd.cjs",
   "module": "./dist/vue-gantt.js",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/src/index.d.ts",
   "scripts": {
     "build": "vue-tsc -b && vite build",
     "dev": "vite build --watch"
