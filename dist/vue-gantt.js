@@ -139,11 +139,11 @@ const A = {
       return (c(s).getTime() - l.windowStart.getTime()) / 864e5 * l.pxPerDay;
     }
     function v(s) {
-      return Math.max(0, h(s));
+      return Math.max(0, h(s)) + 1;
     }
     function g(s, y) {
       const d = h(s), M = h(y) + l.pxPerDay;
-      return Math.max(0, Math.min(l.totalWidth, M) - Math.max(0, d));
+      return Math.max(0, Math.min(l.totalWidth, M) - Math.max(0, d) - 2);
     }
     function b(s, y) {
       const d = c(s), M = c(y), S = new Date(l.windowStart);

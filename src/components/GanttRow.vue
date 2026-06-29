@@ -27,13 +27,13 @@ function dateToX(dateStr: string): number {
 }
 
 function itemLeft(start: string): number {
-  return Math.max(0, dateToX(start))
+  return Math.max(0, dateToX(start)) + 1
 }
 
 function itemWidth(start: string, end: string): number {
   const l = dateToX(start)
   const r = dateToX(end) + props.pxPerDay  // end is inclusive → +1 day width
-  return Math.max(0, Math.min(props.totalWidth, r) - Math.max(0, l))
+  return Math.max(0, Math.min(props.totalWidth, r) - Math.max(0, l) - 2)
 }
 
 function isVisible(start: string, end: string): boolean {
