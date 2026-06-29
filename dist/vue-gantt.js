@@ -1,4 +1,4 @@
-import { computed as w, defineComponent as $, openBlock as n, createElementBlock as o, normalizeStyle as m, Fragment as D, renderList as f, normalizeClass as W, createElementVNode as u, toDisplayString as k, createCommentVNode as T, createBlock as C, useModel as z, unref as p, createVNode as G, mergeModels as N } from "vue";
+import { computed as w, defineComponent as $, openBlock as n, createElementBlock as o, normalizeStyle as m, Fragment as D, renderList as k, normalizeClass as W, createElementVNode as u, toDisplayString as f, createCommentVNode as T, createBlock as C, useModel as z, unref as p, createVNode as G, mergeModels as N } from "vue";
 const F = {
   week: 100,
   month: 32,
@@ -64,35 +64,35 @@ const A = {
       style: m({ width: e.totalWidth + "px" })
     }, [
       e.zoom === "week" ? (n(), o("div", A, [
-        (n(!0), o(D, null, f(e.days, (t, i) => (n(), o("div", {
+        (n(!0), o(D, null, k(e.days, (t, i) => (n(), o("div", {
           key: i,
           class: W(["gantt-axis-cell gantt-axis-cell-week", { "gantt-axis-weekend": g(t) }]),
           style: m({ width: e.pxPerDay + "px" })
         }, [
-          u("span", B, k(c[t.getDay()]), 1),
-          u("span", I, k(t.getDate()) + "." + k(String(t.getMonth() + 1).padStart(2, "0")) + ".", 1)
+          u("span", B, f(c[t.getDay()]), 1),
+          u("span", I, f(t.getDate()) + "." + f(String(t.getMonth() + 1).padStart(2, "0")) + ".", 1)
         ], 6))), 128))
       ])) : e.zoom === "month" ? (n(), o(D, { key: 1 }, [
         u("div", O, [
-          (n(!0), o(D, null, f(b.value, (t) => (n(), o("div", {
+          (n(!0), o(D, null, k(b.value, (t) => (n(), o("div", {
             key: t.kw,
             class: "gantt-axis-kw",
             style: m({ width: t.days.length * e.pxPerDay + "px" })
-          }, " KW " + k(t.kw), 5))), 128))
+          }, " KW " + f(t.kw), 5))), 128))
         ]),
         u("div", E, [
-          (n(!0), o(D, null, f(e.days, (t, i) => (n(), o("div", {
+          (n(!0), o(D, null, k(e.days, (t, i) => (n(), o("div", {
             key: i,
             class: W(["gantt-axis-cell gantt-axis-cell-day", { "gantt-axis-weekend": g(t) }]),
             style: m({ width: e.pxPerDay + "px" })
-          }, k(t.getDate()), 7))), 128))
+          }, f(t.getDate()), 7))), 128))
         ])
       ], 64)) : (n(), o("div", H, [
-        (n(!0), o(D, null, f(x.value, (t) => (n(), o("div", {
+        (n(!0), o(D, null, k(x.value, (t) => (n(), o("div", {
           key: t.label,
           class: "gantt-axis-month",
           style: m({ width: t.days.length * e.pxPerDay + "px" })
-        }, k(t.label), 5))), 128))
+        }, f(t.label), 5))), 128))
       ]))
     ], 4));
   }
@@ -110,10 +110,15 @@ const A = {
   setup(e) {
     return (l, c) => (n(), o("div", {
       class: W(["gantt-bar", e.item.className]),
-      style: m({ left: e.left + "px", width: e.width + "px" }),
+      style: m({
+        left: e.left + "px",
+        width: e.width + "px",
+        top: "calc((var(--gantt-row-height) - var(--gantt-bar-height)) / 2)",
+        transform: "none"
+      }),
       "data-tooltip": e.item.tooltip || e.item.label
     }, [
-      e.showLabel && e.width > 32 ? (n(), o("span", V, k(e.item.label), 1)) : T("", !0)
+      e.showLabel && e.width > 32 ? (n(), o("span", V, f(e.item.label), 1)) : T("", !0)
     ], 14, R));
   }
 }), K = { class: "gantt-row" }, X = { class: "gantt-label-text" }, j = ["data-tooltip"], q = /* @__PURE__ */ $({
@@ -158,13 +163,13 @@ const A = {
         class: "gantt-label-cell",
         style: m({ width: e.labelWidth + "px" })
       }, [
-        u("span", X, k(e.group.label), 1)
+        u("span", X, f(e.group.label), 1)
       ], 4),
       u("div", {
         class: "gantt-track",
         style: m({ width: e.totalWidth + "px" })
       }, [
-        (n(!0), o(D, null, f(e.days, (d, M) => (n(), o("div", {
+        (n(!0), o(D, null, k(e.days, (d, M) => (n(), o("div", {
           key: M,
           class: W(["gantt-day-bg", {
             "gantt-weekend": t(d),
@@ -172,7 +177,7 @@ const A = {
           }]),
           style: m({ left: M * e.pxPerDay + "px", width: e.pxPerDay + "px" })
         }, null, 6))), 128)),
-        (n(!0), o(D, null, f(r.value, (d) => (n(), o("div", {
+        (n(!0), o(D, null, k(r.value, (d) => (n(), o("div", {
           key: d.id,
           class: "gantt-bg-item",
           "data-tooltip": d.label,
@@ -181,7 +186,7 @@ const A = {
             width: g(d.start, d.end ?? d.start) + "px"
           })
         }, null, 12, j))), 128)),
-        (n(!0), o(D, null, f(x.value, (d) => (n(), C(_, {
+        (n(!0), o(D, null, k(x.value, (d) => (n(), C(_, {
           key: d.id,
           item: d,
           left: v(d.start),
@@ -273,7 +278,7 @@ const A = {
               totalWidth: p(g).totalWidth.value
             }, null, 8, ["days", "zoom", "pxPerDay", "totalWidth"])
           ]),
-          (n(!0), o(D, null, f(e.groups, (i) => (n(), C(q, {
+          (n(!0), o(D, null, k(e.groups, (i) => (n(), C(q, {
             key: i.id,
             group: i,
             items: b.value[i.id] ?? [],
