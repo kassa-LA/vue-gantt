@@ -157,8 +157,10 @@
 /* ── Bars ── */
 .gantt-bar {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 0;
+  bottom: 0;
+  margin-top: auto;
+  margin-bottom: auto;
   height: var(--gantt-bar-height);
   background: var(--gantt-bar-bg);
   border-radius: var(--gantt-bar-radius);
