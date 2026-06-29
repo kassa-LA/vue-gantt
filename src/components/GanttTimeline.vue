@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, ref, onMounted, onBeforeUnmount } from 'vue'
+import { computed, ref } from 'vue'
 import type { GanttGroup, GanttItem, GanttBackground, GanttZoom } from '../types'
-import { useGanttLayout, localMidnight, PX_PER_DAY, WINDOW_DAYS } from '../composables/useGanttLayout'
+import { useGanttLayout, localMidnight } from '../composables/useGanttLayout'
 import GanttTimeAxis from './GanttTimeAxis.vue'
 import GanttRow from './GanttRow.vue'
 
@@ -10,9 +10,11 @@ const props = withDefaults(defineProps<{
   items: GanttItem[]
   backgrounds?: GanttBackground[]
   labelWidth?: number
+  pxPerDay?: number
 }>(), {
   backgrounds: () => [],
   labelWidth: 180,
+  pxPerDay: undefined,
 })
 
 const zoom = defineModel<GanttZoom>('zoom', { default: 'month' })
@@ -20,29 +22,8 @@ const windowStart = defineModel<Date>('start', {
   default: () => localMidnight(),
 })
 
-const rootEl = ref<HTMLElement | null>(null)
-const containerWidth = ref(0)
-
-let ro: ResizeObserver | null = null
-onMounted(() => {
-  if (!rootEl.value) return
-  containerWidth.value = rootEl.value.offsetWidth
-  ro = new ResizeObserver(([e]) => {
-    containerWidth.value = e!.contentRect.width
-  })
-  ro.observe(rootEl.value)
-})
-onBeforeUnmount(() => ro?.disconnect())
-
-const responsivePxPerDay = computed(() => {
-  const minPx = PX_PER_DAY[zoom.value]
-  if (!containerWidth.value) return minPx
-  const available = containerWidth.value - props.labelWidth
-  const computed_ = available / WINDOW_DAYS[zoom.value]
-  return Math.max(minPx, computed_)
-})
-
-const layout = useGanttLayout(zoom, windowStart, responsivePxPerDay)
+const pxPerDayRef = computed(() => props.pxPerDay)
+const layout = useGanttLayout(zoom, windowStart, pxPerDayRef)
 
 const itemsByGroup = computed(() => {
   const map: Record<string, GanttItem[]> = {}
@@ -65,7 +46,7 @@ function goToday() {
 </script>
 
 <template>
-  <div class="gantt-root" ref="rootEl">
+  <div class="gantt-root">
     <!-- Toolbar -->
     <div class="gantt-toolbar">
       <div class="gantt-nav">

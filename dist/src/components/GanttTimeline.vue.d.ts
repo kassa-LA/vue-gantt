@@ -4,6 +4,7 @@ type __VLS_Props = {
     items: GanttItem[];
     backgrounds?: GanttBackground[];
     labelWidth?: number;
+    pxPerDay?: number;
 };
 type __VLS_PublicProps = {
     'zoom'?: GanttZoom;
@@ -16,9 +17,8 @@ declare const _default: import('vue').DefineComponent<__VLS_PublicProps, {}, {},
     "onUpdate:zoom"?: ((value: GanttZoom) => any) | undefined;
     "onUpdate:start"?: ((value: Date) => any) | undefined;
 }>, {
+    pxPerDay: number;
     backgrounds: GanttBackground[];
     labelWidth: number;
-}, {}, {}, {}, string, import('vue').ComponentProvideOptions, false, {
-    rootEl: HTMLDivElement;
-}, HTMLDivElement>;
+}, {}, {}, {}, string, import('vue').ComponentProvideOptions, false, {}, HTMLDivElement>;
 export default _default;
